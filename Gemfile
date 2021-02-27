@@ -56,5 +56,5 @@ gem 'open-uri'
 gem 'devise'
 gem 'rubyzip'
 gem "down", "~> 4.4"
-gem 'bootstrap', '~> 5.0.0.beta1'
+gem 'bootstrap', '~> 5.0.0.beta2'
 gem 'jquery-rails'
