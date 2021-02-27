@@ -1,0 +1,24 @@
+language: ruby
+sudo: false
+cache: bundler
+rvm:
+  - 2.0.0
+  - 2.1.5
+  - 2.2.0
+  - ruby-head
+  - rbx-2
+matrix:
+  include:
+  - rvm: jruby-1.7.17-19mode
+    jdk: oraclejdk7
+  - rvm: jruby-1.7.17-19mode
+    jdk: openjdk7
+  allow_failures:
+    - rvm: ruby-head
+    - rvm: rbx-2
+before_install:
+  - gem update --system
+  - gem --version
+before_script:
+  - echo `whereis zip`
+  - echo `whereis unzip`

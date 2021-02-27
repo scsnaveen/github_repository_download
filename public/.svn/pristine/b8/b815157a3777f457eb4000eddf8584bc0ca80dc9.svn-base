@@ -1,0 +1,36 @@
+language: ruby
+dist: trusty
+cache: bundler
+rvm:
+  - 2.0
+  - 2.1
+  - 2.2
+  - 2.3
+  - 2.4
+  - 2.5
+  - 2.6
+  - ruby-head
+matrix:
+  include:
+  - rvm: jruby
+    jdk: oraclejdk8
+  - rvm: jruby-9.1
+    jdk: openjdk7
+  - rvm: jruby-head
+    jdk: oraclejdk8
+  - rvm: rbx-4
+  allow_failures:
+    - rvm: ruby-head
+    - rvm: rbx-4
+    - rvm: jruby-head
+before_install:
+  - gem --version
+before_script:
+  - echo `whereis zip`
+  - echo `whereis unzip`
+env:
+  global:
+    - JRUBY_OPTS="--debug"
+    - COVERALLS_PARALLEL=true
+notifications:
+  webhooks: https://coveralls.io/webhook

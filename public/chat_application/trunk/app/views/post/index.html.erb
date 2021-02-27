@@ -1,0 +1,29 @@
+<h1 style ="text-align: center; font-style: italic;"> Timeline </h1>
+<div class="container">
+	<div class="col-md-6 mx-auto mb-5">
+	<%= render 'form'%>
+	<% @our_posts.each do |post|%>
+	<div class="card" style="min-height:100px; border-style:initial;">
+		
+		<h5><img class="rounded-circle user_img" src="<%=User.find_by(:id=>post.user_id).profile_pic_url.to_s %>" alt="assets/images/default-profile-3.png"><%=link_to User.find_by(:id=>post.user_id).user_name,user_path(:id=>post.user_id) %>
+		<%if post.user_id == current_user.id %>
+		<%= link_to "delete", post_delete_url(:id=>post.id),
+				  method: :delete,
+				  data: { confirm: "Are you sure?" } ,style: "float:right"%>
+		<%end%></h5>
+		<div class="card">
+		<h3><%= post.post%></h3></div>
+		<span><%= post.created_at.to_formatted_s(:short)%></span>
+	</div>
+	<br>
+	<%end%>
+</div>
+</div>
+<style type="text/css">
+.user_img{
+	  height: 50px;
+	  width: 50px;
+	
+	}
+	
+</style>

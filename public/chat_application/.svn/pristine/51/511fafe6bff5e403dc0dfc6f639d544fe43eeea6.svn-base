@@ -1,0 +1,87 @@
+<div class="container">
+	<div class="row">
+	<div class="col-md-4 center">
+		<img src="https://socialnomics.net/wp-content/uploads/2017/11/Screen-Shot-2017-11-02-at-9.56.10-AM.png" width="500" height= "500" >
+	</div>
+	<div class="col-md-6 mx-auto">
+		<h1  class="center bold">Sign up</h1>
+
+		<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+			<%= render "users/shared/error_messages", resource: resource %>
+				<div class=" row">
+					<div class="col">
+						<%= f.label :firstname  %><br />
+						<%= f.text_field :first_name, autofocus: true  %>
+					</div><br>
+
+					<div class="col">
+						<%= f.label :lastname %><br />
+						<%= f.text_field :last_name, autofocus: true %>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :username %><br />
+					<%= f.text_field :user_name, autofocus: true %>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :email %><br />
+					<%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :password %>
+					<% if @minimum_password_length %>
+					<em>(<%= @minimum_password_length %> characters minimum)</em>
+					<% end %><br />
+					<%= f.password_field :password, autocomplete: "new-password" %>
+				</div>
+
+				<div class="form-group">
+					<%= f.label :password_confirmation %><br />
+					<%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+				</div>
+				<div class="form-group">
+					<div class=" row">
+						<%= f.label :Gender, "Gender"%>
+						<div class="col-md-2">
+							<div class=" form-check">
+								<%= f.radio_button :is_female, '1',class: "form-check-input" %>
+								<%= f.label :is_female, "Female",class: 'form-check-label'%>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class=" form-check">
+								<%= f.radio_button :is_female, '0',class: "form-check-input"%> 
+								<%= f.label :is_female, "Male",class: 'form-check-label' %>
+							</div>
+						</div>
+							<div class="col-md-6">	
+								<%= f.label :date_of_birth %>		
+								<%= f.date_select :date_of_birth,start_year: 1995   %>
+							</div>
+					</div>
+				</div><br />
+			<div class="form-group">
+				<%= f.label :Profile_Pic %>
+				<%= f.file_field :profile_pic ,class: "form-control" %>
+			</div><br>
+
+			<div class="actions">
+				<%= f.submit "Sign up" %>
+			</div>
+		<% end %>
+
+	<%= render "users/shared/links" %>
+	</div>
+</div>
+</div>
+<style type="text/css">
+body {
+	font-family: 'Open Sans', cursive;
+}
+input, textarea {
+	width: 100%;
+}
+</style>

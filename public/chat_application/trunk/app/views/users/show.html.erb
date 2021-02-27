@@ -1,0 +1,77 @@
+<div class="container">
+	<div class="row">
+		<div class ="col-md-2">
+			<h1><%=@user.user_name%></h1>
+			<img class="rounded-circle user_img" src="<%=@user.profile_pic_url.to_s %>" alt="<%=@user.user_name%>">
+			<div >
+				<h4 >
+					<%=@user.email%>
+				</h4>
+			</div>
+			<% if current_user.friends_with?(@user) %>
+				<div >
+					<%= form_tag ({controller: 'friendships', action: 'remove', method: 'post', :id => @user.id}) do %>
+							<input  type=submit value='Unfriend'>
+						<% end %>
+				</div>
+				<div >
+					<%= form_tag ({controller: 'friendships', action: 'block', method: 'post', :id=> @user.id}) do %>
+						<input  type=submit value='block'>
+					<% end %>
+				</div>
+			<% end %>
+			<% if @user.friend_requests? %>
+				<div>
+					<div>
+						<%= form_tag ({controller: 'friendships', action: 'reject', method: 'post', id: @user.id}) do %>
+							<input  type=submit value='Cancel Request '>
+						<% end %>
+					</div>
+				</div>
+			<%end%> 
+			<% if current_user.not_friends.include?(@user) %>
+				<div >
+					<%= form_tag ({controller: 'friendships', action: 'create', method: 'post', :id=> @user.id}) do %>
+						<input type=submit value='Send Friend Request'>
+						<% end %>
+				</div>
+			<% end %>
+		</div>
+		<div class="col-md-10", style ="width: 60%;">
+			<%= render 'post/form'%>
+			<div >
+				<%@user.posts.each do |post|%>
+					<div class="card" style="min-height:100px">
+						<h5><img class="rounded-circle user_img" src="<%=User.find_by(:id=>post.user_id).profile_pic_url.to_s %>" alt="Blank"><%=link_to User.find_by(:id=>post.user_id).user_name,user_path(:id=>post.user_id) %></h5>
+						<div class="card">
+							<h3><%= post.post%></h3>
+						</div>
+							<span><%= post.created_at.to_formatted_s(:short)%></span>
+					</div>
+					<br>
+					<%end%>
+			</div>
+		</div>
+		<div class="col-md-2">
+			Friends
+		<ul>
+		<%@user.friends.each do |friend|%>
+		<li>
+			<img class="rounded-circle user_img" src="<%=friend.profile_pic_url.to_s %>" alt="<%=friend.user_name%>">
+			<span class="ui header">
+				<%=link_to  friend.user_name,user_path(:id=>friend.id) %>
+			</span>
+		</li>
+		<%end%>
+		</div>
+	</div>          
+</div>
+<style type="text/css">
+.user_img{
+	  height: 50px;
+	  width: 50px;
+	  border:1.5px solid #f5f6fa;
+	
+	}
+	
+</style>

@@ -1,0 +1,30 @@
+<div class="container"> 
+	<div class="row">
+	<div class="col-md-12">
+		<div class="jumbotron">
+			<%= form_with url: projects_create_path do |f| %>
+				<h2>Enter github url to download</h2>
+				<%= f.text_field :url ,class: "form-control input-lg",:id =>"myInput" %>
+				<a href = "download" download>Download File</a>
+				<%=f.submit "download",:href => "#{params[:url]}'" %>
+				<%= link_to "Download", "#{params[:url]}", download:true %>
+			<% end %>
+		</div>
+	</div>
+	</div>
+</div>
+<style type="text/css">
+#myInput		{
+	width:30%;
+	-webkit-transition:width 0.3s ease-in-out;
+}
+#myInput:focus	{
+	width:100%;
+	-webkit-transition:width 0.5s ease-in-out;
+}
+</style>
+<!-- <li class="Box-row Box-row--hover-gray p-0">
+              <a class="d-flex flex-items-center text-gray-dark text-bold no-underline p-3" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;DOWNLOAD_ZIP&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:280270900,&quot;originating_url&quot;:&quot;https://github.com/ckaiser258/Final_Project_Backend&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="d11401f0bb1439263a25a122b99a4819e07be98da6d8a9a018bd5b0299879ef2" data-ga-click="Repository, download zip, location:repo overview" data-open-app="link" href="#{params[:url]}".zip>
+                
+                Download ZIP
+</a>            </li> -->

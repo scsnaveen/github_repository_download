@@ -1,0 +1,39 @@
+<h3>Dear Admin</h3>
+<div class="container">
+<table class="table table-striped">
+  <thead>
+    <tr>
+    	<th scope="col">Admin</th>
+      <th scope="col">model</th>
+      <th scope="col">modified values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @changed_by.email %></td>
+      <td><%= @model_name%></td>
+      <td><%= @changes.gsub(",", "<br>").gsub("{","<br>").gsub("}","").html_safe %></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+Best Regards,
+<br><br>
+Team CHAT
+<style type="text/css">
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>

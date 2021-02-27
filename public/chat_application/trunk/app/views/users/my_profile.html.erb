@@ -1,0 +1,56 @@
+<div class = "container">
+	<br>
+<div class ="row">
+	<div class="col-md-2">
+		<h1><%= @user.user_name%></h1>
+		<br>
+		<img class="rounded-circle user_img" src="<%=@user.profile_pic_url.to_s %>" alt="<%=@user.user_name%>"> 
+			
+			<%= form_for(@user, html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: @user %>
+			<%= f.hidden_field :id%>
+			<%= f.file_field :profile_pic %>
+			<%= f.submit "update profile pic",class: "btn btn-primary"%>
+			<% end %>
+	</div>
+	<div class="col-md-6">
+		<%=render 'post/form'%>
+		<%@posts.each do |post|%>
+		<div class="card" style="min-height:100px; border-style:initial;">
+			<h5>
+				<img class="rounded-circle user_img" src="<%=User.find_by(:id=>post.user_id).profile_pic_url.to_s %>" alt="Blank">
+				<%=link_to User.find_by(:id=>post.user_id).user_name,user_path(:id=>post.user_id) %>
+				<%= link_to "delete", post_delete_url(:id=>post.id),method: :delete,data: { confirm: "Are you sure?" } ,style: "float:right"%>
+			</h5>
+		<div class="card">
+			<h3><%= post.post%></h3>
+		</div>
+		<span>
+			<%= post.created_at.to_formatted_s(:short)%>
+		</span>
+		</div>
+		<br>
+		<%end%>
+	</div>
+	<div class="col-md-2">
+		Friends
+		<ul>
+		<%@friends.each do |friend|%>
+		<li>
+			<img class="rounded-circle user_img" src="<%=friend.profile_pic_url.to_s %>" alt="<%=friend.user_name%>">
+			<span class="ui header">
+				<%=link_to  friend.user_name,user_path(:id=>friend.id) %>
+			</span>
+		</li>
+		<%end%>
+</div>
+</div>
+<style type="text/css">
+.user_img{
+      height: 100px;
+      width: 100px;
+      border:1.5px solid #f5f6fa;
+    
+    }
+    
+</style>

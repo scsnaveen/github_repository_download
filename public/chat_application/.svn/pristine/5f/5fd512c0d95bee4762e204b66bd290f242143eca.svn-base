@@ -1,0 +1,119 @@
+<div class="container">
+	<div class="row">
+	<section class="col-md-4">
+		<div>
+			<% if @user.friend_requests? %>
+				<div>
+					<h3>Friend Requests:</h3>
+					<% @requests.each do |friend| %>
+						<img class="rounded-circle user_img" src="<%=friend.profile_pic_url.to_s %>" alt="<%=friend.user_name%>">
+						<span>
+							<%=link_to friend.user_name,user_path(:id=>friend.id)%>
+						</span>
+						<div >
+							<%= form_tag ({controller: 'friendships', action: 'add', method: 'post', id: friend.id}) do %>
+							<input type=submit value='Accept'>
+							<% end %>
+							<%= form_tag ({controller: 'friendships', action: 'reject', method: 'post', id: friend.id}) do %>
+								<input type=submit value='Decline'>
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+				<% end %>
+					<% if @user.requested_friends? %>
+						<div class="ui vertical segment">
+							<header class="ui basic segment">
+								<h3 class="ui header">Pending:</h3>
+							</header>
+							<% @pending.each do |friend| %>
+								<section class="ui basic segment">
+									<img class="rounded-circle user_img" src="<%=friend.profile_pic_url.to_s %>" alt="<%=friend.user_name%>">
+									<span class="ui yellow header">
+										<%=link_to friend.user_name,user_path(:id=>friend.id)%>
+									</span>
+								</section>
+								<% end %>
+						</div>
+					<% end %>
+					<% if @user.blocked_friends.present? %>
+						<div class="ui vertical segment">
+							<header class="ui basic segment">
+								<h3 class="ui header">Blocked Friends :</h3>
+							</header>
+							<% @blocked.each do |friend| %>
+								<section class="ui basic segment">
+									<img class="rounded-circle user_img" src="<%=friend.profile_pic_url.to_s %>" alt="<%=friend.user_name%>">
+									<span class="ui green header">
+										<%=link_to friend.user_name,user_path(:id=>friend.id)%>
+									</span>
+									<div class="ui basic segment">
+										<%= form_tag ({controller: 'friendships', action: 'unblock', method: 'post', :id=> friend.id}) do %>
+											<input class="ui basic tiny left floated positive button" type=submit value='unblock'>
+											<% end %>
+									</div>
+								</section>
+						</div>
+					<% end %>
+				</div>
+				<% end %>
+						<% if @user.friends? %>
+							<header class="ui basic segment">
+								<h3 class="ui header">Your Friends:</h3>
+							</header>
+							<div class="ui vertical segment">
+									<% @friends.each do |friend| %>
+										<section class="ui basic segment">
+											<img class="rounded-circle user_img" src="<%=friend.profile_pic_url.to_s %>" alt="<%=friend.user_name%>">
+											<span class="ui header">
+												<%=link_to  friend.user_name,user_path(:id=>friend.id) %>
+											</span>
+										</section>
+										<% end %>
+											<% end %>
+							</div>
+		
+	</section>
+	<section class="col-md-8">
+	<div class="d-flex justify-content-end">
+
+		<section class="ui basic segment">
+			<header class="ui basic segment">
+				<h3 class="ui header">Find Friends</h3>
+			</header>
+			<div class="ui basic segment">
+				<%= form_tag ({controller: 'friendships', action: 'search'}) do %>
+					<div class="ui input">
+						<input type="text" name="search" id="search">
+					</div>
+					<input class="ui mini basic button" type="submit" name="commit" value="Search" data-disable-with="Search">
+					<% end %>
+			</div>
+			<% @user.not_friends.sample(5).each do |user| %>
+				<section class="ui basic segment">
+					<img class="rounded-circle user_img" src="<%=user.profile_pic_url.to_s %>" alt="<%=user.user_name%>">
+					<span class="ui header">
+					<%= link_to  user.user_name,user_path(:id=>user.id) %>
+				</span>
+					<div class="ui basic segment">
+						<%= form_tag ({controller: 'friendships', action: 'create', method: 'post', :id=> user.id}) do %>
+							<input class="ui basic button" type=submit value='Add Friend'>
+							<% end %>
+					</div>
+				</section>
+				<% end %>
+		</section>
+	</div>
+	</section>
+	</div>
+</main>
+
+<style type="text/css">
+.user_img{
+	  height: 70px;
+	  width: 70px;
+	  border:1.5px solid #f5f6fa;
+	
+	}
+	
+</style>

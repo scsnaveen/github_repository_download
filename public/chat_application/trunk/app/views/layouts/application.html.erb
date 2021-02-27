@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ChatApp</title>
+		<%= csrf_meta_tags %>
+		<%= csp_meta_tag %>
+
+		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+	</head>
+
+	<body>
+		<%= render 'layouts/dashboard' %>
+			<div class="container">
+				<% if notice %>
+					<p class="alert alert-success"><%= notice %></p>
+				<% end %>
+				<% if alert %>
+					<p class="alert alert-danger"><%= alert %></p>
+				<% end %>
+			</div>
+			<%= yield %>
+	</body>
+</html>
+<script>
+$(document).ready(function() {
+			setTimeout(function() {
+		$('.alert').slideUp();
+	}, 2500);
+});
+</script>
+<style type="text/css">
+ul {
+	padding-left: 0px;
+	list-style: none;
+}
+.messages-list {
+	height: 600px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+
+	.message-sent{
+	 position: relative;
+		margin-bottom: 10px;
+		margin-left: calc(100% - 50%);
+		padding: 10px;
+		background-color: #f8e896;
+		max-width: 50%;
+		height: auto;
+		text-align: left;
+		font: 400 .9em 'Open Sans', sans-serif;
+		border: 1px solid #dfd087;
+		border-radius: 10px;
+}
+
+
+ .message-received{
+	position: relative;
+		margin-left: 20px;
+		margin-bottom: 10px;
+		padding: 10px;
+		background-color: #A8DDFD;
+		max-width: calc(100% - 50%);
+		height: auto;
+		text-align: left;
+		font: 400 .9em 'Open Sans', sans-serif;
+		border: 1px solid #97C6E3;
+		border-radius: 10px;
+	
+
+}
+</style>

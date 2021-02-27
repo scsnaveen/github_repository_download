@@ -1,0 +1,17 @@
+<div class ="container">
+	<table class=" table table-striped">
+		<thead><h1>Online members(<%= @online_users.count %>)</h1></thead>
+		<th><h2>Id</h2></th>
+		<th><h2>User</h2></th>
+		<%@online_users.each do |user| %>
+		<tr>
+			<td>
+				<h3><%= user.id%></h3>
+			</td>
+			<td>
+				<h3><%= user.user_name%></h3>
+			</td>
+		</tr>
+		<%end%>
+	</table>
+</div>

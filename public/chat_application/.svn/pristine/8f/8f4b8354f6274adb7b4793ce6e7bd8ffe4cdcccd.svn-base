@@ -1,0 +1,59 @@
+<div class="row ">
+	<div class ="card-group"> 
+		<div class="col-md-2  col-xl-2">
+			<div class="card mb-sm-3 mb-md-0 ">
+				<div class="card-header">Chat(<%= @users.size %>)</div>
+					<div class="card-body">
+						<ul >
+						<% @users.each do |friend|%>
+						<li >
+							<img src="<%=friend.profile_pic_url %>" class="rounded-circle user_img"><%= link_to friend.user_name, conversations_path(user_id: friend), remote: true, method: :post %>
+						</li>            
+						<%end%>
+						</ul>
+					</div>
+			</div>
+		</div>
+		<div class="col-md-10 col-xl-10">
+			<div class="card">
+				<ul id="conversations-list">
+					<% @conversations.each do |conversation| %>
+						<%= render 'conversations/conversation',conversation: conversation, user: current_user %>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<style type="text/css">
+	ul {
+	padding-left: 0px;
+	list-style: none;
+}
+	.user_img{
+			height: 70px;
+			width: 70px;
+			border:1.5px solid #f5f6fa;
+		
+		}
+		.card{ border-style: none;}
+			body,html{
+			height: 100%;
+			margin: 0;
+			background: #7F7FD5;
+				 background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+					background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+		}
+
+		.chat{
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+		
+
+	
+</style>
